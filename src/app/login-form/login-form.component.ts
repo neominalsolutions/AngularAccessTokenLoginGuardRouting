@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-localstorage';
 import { LoginService } from './login.service';
 
@@ -22,7 +23,8 @@ export class LoginFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private localStorageService: LocalStorageService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +59,7 @@ export class LoginFormComponent implements OnInit {
           this.loginForm.reset();
           this.localStorageService.set('token', res['accessToken']);
           this.localStorageService.set('refresh', res['refreshToken']);
+          this.router.navigateByUrl('home');
         },
         (err) => {
           console.log('err', err);

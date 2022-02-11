@@ -16,6 +16,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 
+// Interceptor'u uygulama genelindeki requestlere tanıtmak için HTTP_INTERCEPTORS servisinden yararlanırız.
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +39,13 @@ import { LoginComponent } from './login/login.component';
     ComponentsModule,
     HttpClientModule,
   ],
-  providers: [PostResolver],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS, // singleton yaptık tüm uygulama genelinde kullanıma açtık
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
