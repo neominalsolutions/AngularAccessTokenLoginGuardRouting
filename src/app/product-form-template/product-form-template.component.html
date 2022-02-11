@@ -1,0 +1,15 @@
+<form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
+    <input type="text" required value="" #username="ngModel" name="username" ngModel> 
+    <span *ngIf="username.errors?.required">
+        {{Messages?.UserNameRequried}}
+    </span>
+    <input type="text" email required value="" #mail="ngModel" name="email" ngModel> 
+    <span *ngIf="mail.errors?.email">
+        {{Messages?.EmailFormat}}
+    </span>
+    <input type="submit" [disabled]="employeeForm.invalid" value="Save" >
+</form>
+
+
+<!-- Template Driven Form FormsModule -->
+

@@ -1,0 +1,23 @@
+<form [formGroup]="loginForm" (submit)="onSubmit($event)">
+  <input formControlName="username" type="text" placeholder="username" />
+  <span
+    *ngIf="
+      loginForm.get('username')?.errors &&
+      (loginForm.get('username')?.touched || loginForm.get('username')?.dirty)
+    "
+  >
+    Kullanıcı adı girmek zorunludur
+  </span>
+  <input
+    type="password"
+    formControlName="password"
+    type="text"
+    placeholder="password"
+  />
+  <input type="submit" [disabled]="loginForm.invalid" value="Save" />
+</form>
+
+<button (click)="SetToken()">Set Access Token</button>
+<button (click)="RemoveToken()">Remove Access Token</button>
+
+<!-- ReactiveFormModule -->
